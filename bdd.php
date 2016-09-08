@@ -1,4 +1,3 @@
 <?php
-  $bdd = mysql_connect('localhost', 'root', '');
-  $db_selected = mysql_select_db('site', $bdd);
+  $bdd = pg_connect('host=localhost port=5432 dbname=site user=jfg password=0c512f67');
 ?>
