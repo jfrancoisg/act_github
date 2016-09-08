@@ -2,13 +2,17 @@
 
 include('bdd.php');
 
-pg_query($bdd, 'INSERT INTO contact (nom, prenom, commentaire, civilite) VALUES 
-                                (\''.$_POST['nom'].'\',
-                                 \''.$_POST['prenom'].'\', 
-                                 \''.$_POST['commentaire'].'\',
-                                 \''.$_POST['civilite'].'\'
-                                 )');
-                                 
+$sql = 'INSERT INTO contact (nom, prenom, commentaire, civilite) VALUES (:nom, :prenom, :commentaire, :civilite)';
+
+$stmt = $bdd->prepare($sql);
+
+$stmt->bindParam(':nom', $_POST['nom']);
+$stmt->bindParam(':prenom', $_POST['prenom']);
+$stmt->bindParam(':commentaire', $_POST['commentaire']);
+$stmt->bindParam(':civilite', $_POST['civilite']);
+
+$stmt->execute();
+    
 header('location: index.html');
 
 ?>
